@@ -34,23 +34,69 @@ class Line:
         self.point1 = point1
         self.point2 = point2
     
-    def draw(self, canvas,lineColor):
+    def draw(self, canvas,lineColor="black"):
         canvas.create_line(
             self.point1.x,self.point1.y,
             self.point2.x,self.point2.y
             ,fill=lineColor,
             width = 2)
 
+class Cell:
+    def __init__(self,x1,y1,x2,y2,win):
+        self.hasLeftWall = True
+        self.hasRightWall = True
+        self.hasTopWall = True
+        self.hasBotWall = True
+        self._x1 = x1
+        self._y1 = y1
+        self._x2 = x2
+        self._y2 = y2
+        self._win = win
+    
+    def draw(self,lineColor="black"):
+        if self.hasTopWall:
+            self._win.canvasWidget.create_line(
+                self._x1,self._y1,
+                self._x2,self._y1,
+                fill=lineColor)
+
+        if self.hasLeftWall:
+            self._win.canvasWidget.create_line(
+                self._x1,self._y1,
+                self._x1,self._y2,
+                fill=lineColor)       
+
+        if self.hasRightWall:
+            self._win.canvasWidget.create_line(
+                self._x2,self._y1,
+                self._x2,self._y2,
+                fill=lineColor)
+
+        if self.hasBotWall:
+            self._win.canvasWidget.create_line(
+                self._x1,self._y2,
+                self._x2,self._y2,
+                fill=lineColor)
+
+    def drawMove(self, toCell, undo=False):
+        center = Point((self._x1 + self._x2)/2,(self._y1 + self._y2)/2)
+        toCenter = Point((toCell._x1 + toCell._x2)/2,(toCell._y1 + toCell._y2)/2)
+        color = "red"
+        if undo:
+            color = "gray"
+            
+        self._win.canvasWidget.create_line(
+            center.x,center.y,
+            toCenter.x,toCenter.y,
+            fill=color
+        )
+
 def main():
     win = Window(800,600)
-    point1=Point(0,0)
+    point1=Point(10,10)
     point2=Point(100,100)
-    line1=Line(point1,point2)
-    point3=Point(100,100)
-    point4=Point(100,400)
-    line2=Line(point3,point4)
-    win.drawLine(line1,"black")
-    win.drawLine(line2,"red")
+    cell1=Cell(point1.x,point1.y,point2.x,point2.y,win)
+    cell1.draw()
     win.waitForClose()
 
 if __name__ == "__main__":
