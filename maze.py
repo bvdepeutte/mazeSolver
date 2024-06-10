@@ -46,3 +46,11 @@ class Maze:
     def _animate(self):
         self.win.redraw()
         time.sleep(0.05)
+
+    def breakEntranceAndExit(self):
+        col = self.numCols - 1
+        row = self.numRows - 1
+        self._cells[0][0].hasLeftWall = False
+        self._drawCell(0,0)
+        self._cells[col][row].hasRightWall = False
+        self._drawCell(col,row)

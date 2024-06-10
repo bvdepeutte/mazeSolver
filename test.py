@@ -31,20 +31,18 @@ class Tests(unittest.TestCase):
             len(m1._cells[0]),
             numRows,
         )
-
-    def testMazeCreateCellsLarge(self):
-        numCols = 10
-        numRows = 14
+    
+    def testMazeEntranceAndExit(self):
+        numCols = 5
+        numRows = 5
         win = Window(200,200)
         m1 = Maze(0, 0, numRows, numCols, 10, 10, win)
-        self.assertEqual(
-            len(m1._cells),
-            numCols,
+        m1.breakEntranceAndExit()
+        self.assertTrue(
+            m1._cells[0][0].hasLeftWall == False,"Left Top Wall should be broken"
         )
-        self.assertEqual(
-            len(m1._cells[0]),
-            numRows,
-        )
-
+        self.assertTrue(
+            m1._cells[numCols-1][numRows-1].hasRightWall == False,"Right bottom Wall should be broken"
+        )    
 if __name__ == "__main__":
     unittest.main()

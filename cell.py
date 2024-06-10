@@ -18,24 +18,44 @@ class Cell:
                 self._x1,self._y1,
                 self._x2,self._y1,
                 fill=lineColor)
+        else:
+            self._win.canvasWidget.create_line(
+                self._x1,self._y1,
+                self._x2,self._y1,
+                fill="white")
 
         if self.hasLeftWall:
             self._win.canvasWidget.create_line(
                 self._x1,self._y1,
                 self._x1,self._y2,
                 fill=lineColor)       
-
+        else:
+            self._win.canvasWidget.create_line(
+                self._x1,self._y1,
+                self._x1,self._y2,
+                fill="white")    
+        
         if self.hasRightWall:
             self._win.canvasWidget.create_line(
                 self._x2,self._y1,
                 self._x2,self._y2,
                 fill=lineColor)
-
+        else:
+            self._win.canvasWidget.create_line(
+                self._x2,self._y1,
+                self._x2,self._y2,
+                fill="white")
+        
         if self.hasBotWall:
             self._win.canvasWidget.create_line(
                 self._x1,self._y2,
                 self._x2,self._y2,
                 fill=lineColor)
+        else:
+            self._win.canvasWidget.create_line(
+                self._x1,self._y2,
+                self._x2,self._y2,
+                fill="white")
 
     def drawMove(self, toCell, undo=False):
         center = Point((self._x1 + self._x2)/2,(self._y1 + self._y2)/2)
