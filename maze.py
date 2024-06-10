@@ -19,6 +19,7 @@ class Maze:
         self.cellSizeX = cellSizeX
         self.cellSizeY = cellSizeY
         self.win = win
+        self._createCells()
     
     def _createCells(self):
         self._cells = []
@@ -33,7 +34,7 @@ class Maze:
         
         for col in range(self.numCols):
             for row in range(self.numRows):
-                self._draw_cell(col, row)
+                self._drawCell(col, row)
     
     def _drawCell(self,col,row):
         x = self.x1 + col * self.cellSizeX
