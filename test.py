@@ -43,6 +43,22 @@ class Tests(unittest.TestCase):
         )
         self.assertTrue(
             m1._cells[numCols-1][numRows-1].hasRightWall == False,"Right bottom Wall should be broken"
-        )    
+        )
+    
+    def testSetUpMaze(self):
+        numCols = 5
+        numRows = 5
+        win = Window(200,200)
+        m1 = Maze(0, 0, numRows, numCols, 10, 10, win)
+        m1.breakEntranceAndExit()
+        m1._breakWallsR(0,0)
+        for col in m1._cells:
+            for cell in col:
+                self.assertEqual(
+                    cell.visited,
+                    False,
+                )
+
+
 if __name__ == "__main__":
     unittest.main()
